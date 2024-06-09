@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
 
-export function welcome(req: Request, res: Response): Response {
-  return res.json({ message: "Welcome to branch information management application." });
+export function healtcheck(req: Request, res: Response): Response {
+  return res.json({ message: "Server is runnig!" });
 }
