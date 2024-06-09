@@ -1,15 +1,32 @@
-import express, { Express, Request, Response } from 'express'
+import { Application } from 'express'
+import dotenv from 'dotenv'
+import cors from 'cors'
+import Routes from './routes'
 import bodyParser from 'body-parser'
 
-const app: Express = express()
+dotenv.config()
 
-app.use(bodyParser.urlencoded({ extended: false }))
-app.use(bodyParser.json())
+import Database from './database'
 
-app.get('/', (req: Request, res: Response) => {
-  res.json({ message: 'Hello World!' })
-})
+export default class Server {
+  constructor(app: Application) {
+    this.config(app)
+    this.syncDatabase()
+    new Routes(app)
+  }
 
-app.listen(8080, async () => {
-  console.log('Server is running at http://localhost:8080')
-})
+  private config(app: Application): void {
+    const corsOptions = {
+      origin: process.env.CLIENT_ORIGIN || 'http://localhost:3000'
+    }
+
+    app.use(cors(corsOptions))
+    app.use(bodyParser.urlencoded({ extended: false }))
+    app.use(bodyParser.json())
+  }
+
+  private syncDatabase(): void {
+    const db = new Database()
+    db.sequelize?.sync()
+  }
+}
