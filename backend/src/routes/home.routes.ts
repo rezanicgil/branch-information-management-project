@@ -1,16 +1,16 @@
-import { Router } from "express";
-import { healtcheck } from "../controllers/home.controller";
+import { Router } from 'express'
+import { healtcheck } from '../controllers/home.controller'
 
 class HomeRoutes {
-  router = Router();
+  router = Router()
 
   constructor() {
-    this.intializeRoutes();
+    this.intializeRoutes()
   }
 
   intializeRoutes() {
-    this.router.get("/", healtcheck);
+    this.router.get('/', healtcheck)
   }
 }
 
-export default new HomeRoutes().router;
+export default new HomeRoutes().router
