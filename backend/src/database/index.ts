@@ -1,5 +1,7 @@
 import { Sequelize } from 'sequelize-typescript'
 import { config, dialect } from '../../config/db.config'
+import User from '../models/user.model'
+import Branch from '../models/branch.model'
 
 class Database {
   public sequelize: Sequelize | undefined
@@ -21,7 +23,7 @@ class Database {
         acquire: config.pool.acquire,
         idle: config.pool.idle
       },
-      models: []
+      models: [User, Branch]
     })
 
     await this.sequelize
