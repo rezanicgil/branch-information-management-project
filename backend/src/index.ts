@@ -17,7 +17,7 @@ export default class Server {
 
   private config(app: Application): void {
     const corsOptions = {
-      origin: process.env.CLIENT_ORIGIN || 'http://localhost:3000'
+      origin: process.env.CLIENT_ORIGIN || 'http://localhost:8888'
     }
 
     app.use(cors(corsOptions))
