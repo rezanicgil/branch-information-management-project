@@ -6,7 +6,6 @@ export const createBranch = async (input: CreateBranchDTO): Promise<Branch> => {
 
 export const updateBranch = async (id: string, input: UpdateBranchDTO): Promise<Branch | null> => {
   const [affectedCount] = await Branch.update({ ...input }, { where: { branchId: id } })
-  console.log(affectedCount)
   if (affectedCount === 0) {
     return null
   }

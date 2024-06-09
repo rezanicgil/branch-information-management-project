@@ -7,8 +7,7 @@ import { generateToken } from '../helpers/authHelper'
 import { AuthenticatedRequest } from '../middlewares/authMiddleware'
 export async function signUp(req: Request, res: Response): Promise<Response> {
   try {
-    const user = await createUser(req.body)
-    console.log(user)
+    await createUser(req.body)
     return res.json({
       message: 'User created successfully!',
       status: StatusCodes.CREATED
@@ -16,7 +15,6 @@ export async function signUp(req: Request, res: Response): Promise<Response> {
   } catch (error) {
     const err = error as Error
 
-    console.log(err)
     return res.json({
       message: 'Internal Server Error!',
       status: StatusCodes.INTERNAL_SERVER_ERROR,
