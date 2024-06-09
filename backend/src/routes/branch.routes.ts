@@ -1,5 +1,10 @@
 import { Router } from 'express'
-import { findAllBranchesHandler, createBranchHandler } from '../controllers/branch.controller'
+import {
+  findAllBranchesHandler,
+  createBranchHandler,
+  findOneBranchHandler,
+  updateBranchHandler
+} from '../controllers/branch.controller'
 import { authMiddleware, isOwner } from '../middlewares/authMiddleware'
 class BranchRoutes {
   router = Router()
@@ -11,6 +16,9 @@ class BranchRoutes {
   intializeRoutes() {
     this.router.get('/', authMiddleware, findAllBranchesHandler)
     this.router.post('/', authMiddleware, isOwner, createBranchHandler)
+    this.router.post('/:id', authMiddleware, isOwner, createBranchHandler)
+    this.router.patch('/:id', authMiddleware, isOwner, updateBranchHandler)
+    this.router.get('/:id', authMiddleware, findOneBranchHandler)
   }
 }
 

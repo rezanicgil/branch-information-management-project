@@ -1,7 +1,17 @@
-import Branch, { CreateBranchDTO } from '../models/branch.model'
+import Branch, { CreateBranchDTO, UpdateBranchDTO } from '../models/branch.model'
 
 export const createBranch = async (input: CreateBranchDTO): Promise<Branch> => {
   return await Branch.create({ ...input })
+}
+
+export const updateBranch = async (id: string, input: UpdateBranchDTO): Promise<Branch | null> => {
+  const [affectedCount] = await Branch.update({ ...input }, { where: { branchId: id } })
+  console.log(affectedCount)
+  if (affectedCount === 0) {
+    return null
+  }
+  const updatedBranch = await Branch.findByPk(id)
+  return updatedBranch
 }
 
 export const findOneBranch = async (id: string): Promise<Branch | null> => {
