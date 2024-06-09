@@ -1,5 +1,5 @@
 import { Router } from 'express'
-import { healtcheck } from '../controllers/home.controller'
+import { healtCheck } from '../controllers/home.controller'
 
 class HomeRoutes {
   router = Router()
@@ -9,7 +9,7 @@ class HomeRoutes {
   }
 
   intializeRoutes() {
-    this.router.get('/', healtcheck)
+    this.router.get('/', healtCheck)
   }
 }
 

@@ -26,7 +26,7 @@ export default class User extends Model {
 
   @Column({
     type: DataType.STRING(100),
-    field: 'firstName',
+    field: 'lastName',
     allowNull: false
   })
   lastName?: string

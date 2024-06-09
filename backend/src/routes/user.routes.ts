@@ -1,5 +1,5 @@
 import { Router } from 'express'
-import { signup } from '../controllers/user.controller'
+import { signIn, signUp } from '../controllers/user.controller'
 class AuthRoutes {
   router = Router()
 
@@ -8,7 +8,8 @@ class AuthRoutes {
   }
 
   intializeRoutes() {
-    this.router.post('/signup', signup)
+    this.router.post('/signup', signUp)
+    this.router.post('/signin', signIn)
   }
 }
 

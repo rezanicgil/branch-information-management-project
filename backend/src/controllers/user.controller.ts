@@ -1,11 +1,12 @@
 import { Request, Response } from 'express'
-import { createUser } from '../services/user.service'
+import { createUser, findUser } from '../services/user.service'
 import { StatusCodes } from 'http-status-codes'
 import { Error } from 'sequelize'
-export async function signup(req: Request, res: Response): Promise<Response> {
+import { comparePassword } from '../helpers/passwordHelper'
+import { generateToken } from '../helpers/authHelper'
+export async function signUp(req: Request, res: Response): Promise<Response> {
   try {
     const user = await createUser(req.body)
-
     console.log(user)
     return res.json({
       message: 'User created successfully!',
@@ -15,6 +16,44 @@ export async function signup(req: Request, res: Response): Promise<Response> {
     const err = error as Error
 
     console.log(err)
+    return res.json({
+      message: 'Internal Server Error!',
+      status: StatusCodes.INTERNAL_SERVER_ERROR,
+      error: err.message.split('\n')
+    })
+  }
+}
+
+export async function signIn(req: Request, res: Response): Promise<Response> {
+  try {
+    const { email, password } = req.body
+    const user = await findUser(email)
+
+    if (!user) {
+      return res.json({
+        message: 'User not found!',
+        status: StatusCodes.NOT_FOUND
+      })
+    }
+
+    const isPasswordValid = await comparePassword(password, user.password!)
+
+    if (!isPasswordValid) {
+      return res.json({
+        message: 'Bad Request',
+        status: StatusCodes.BAD_REQUEST
+      })
+    }
+
+    const token = generateToken(user)
+
+    return res.json({
+      message: 'Logged in successfully!',
+      token: token,
+      status: StatusCodes.ACCEPTED
+    })
+  } catch (error) {
+    const err = error as Error
     return res.json({
       message: 'Internal Server Error!',
       status: StatusCodes.INTERNAL_SERVER_ERROR,

@@ -7,3 +7,11 @@ export const createUser = async (input: CreateUserDTO): Promise<User> => {
   }
   return await User.create({ ...input })
 }
+
+export const findUser = async (email: string): Promise<User | null> => {
+  const user = await User.findOne({ where: { email } })
+  if (!user) {
+    return null
+  }
+  return user
+}
