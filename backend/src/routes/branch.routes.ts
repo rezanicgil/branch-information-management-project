@@ -16,7 +16,6 @@ class BranchRoutes {
   intializeRoutes() {
     this.router.get('/', authMiddleware, findAllBranchesHandler)
     this.router.post('/', authMiddleware, isOwner, createBranchHandler)
-    this.router.post('/:id', authMiddleware, isOwner, createBranchHandler)
     this.router.patch('/:id', authMiddleware, isOwner, updateBranchHandler)
     this.router.get('/:id', authMiddleware, findOneBranchHandler)
   }
