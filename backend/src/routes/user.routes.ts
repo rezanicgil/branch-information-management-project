@@ -1,5 +1,6 @@
 import { Router } from 'express'
-import { signIn, signUp } from '../controllers/user.controller'
+import { getUser, signIn, signUp } from '../controllers/user.controller'
+import { authMiddleware } from '../middlewares/authMiddleware'
 class AuthRoutes {
   router = Router()
 
@@ -10,6 +11,7 @@ class AuthRoutes {
   intializeRoutes() {
     this.router.post('/signup', signUp)
     this.router.post('/signin', signIn)
+    this.router.get('/me', authMiddleware, getUser)
   }
 }
 

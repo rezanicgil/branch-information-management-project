@@ -1,6 +1,6 @@
 import { UUIDV4 } from 'sequelize'
 import { Model, Table, Column, DataType } from 'sequelize-typescript'
-enum UserRole {
+export enum UserRole {
   OWNER = 'Owner',
   EMPLOYEEE = 'Employee'
 }
