@@ -16,7 +16,8 @@ export default class Branch extends Model {
   @Column({
     type: DataType.STRING(100),
     field: 'name',
-    allowNull: false
+    allowNull: false,
+    unique: true
   })
   name?: string
 
@@ -40,6 +41,13 @@ export default class Branch extends Model {
     allowNull: true
   })
   fullAddress?: string
+
+  @Column({
+    type: DataType.STRING(10),
+    field: 'phone',
+    allowNull: true
+  })
+  phone?: string
 }
 
 export interface CreateBranchDTO {
@@ -47,6 +55,7 @@ export interface CreateBranchDTO {
   longitude: number
   latitude: number
   fullAddress: string
+  phone: string
 }
 
 export interface UpdateBranchDTO {
@@ -54,4 +63,5 @@ export interface UpdateBranchDTO {
   longitude: number
   latitude: number
   fullAddress: string
+  phone: string
 }
