@@ -41,3 +41,17 @@ export default class Branch extends Model {
   })
   fullAddress?: string
 }
+
+export interface CreateBranchDTO {
+  name: string
+  longitude: number
+  latitude: number
+  fullAddress: string
+}
+
+export interface UpdateBranchDTO {
+  name: string
+  longitude: number
+  latitude: number
+  fullAddress: string
+}

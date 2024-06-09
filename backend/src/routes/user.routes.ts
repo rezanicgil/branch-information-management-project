@@ -1,7 +1,7 @@
 import { Router } from 'express'
 import { getUser, signIn, signUp } from '../controllers/user.controller'
 import { authMiddleware } from '../middlewares/authMiddleware'
-class AuthRoutes {
+class UserRoutes {
   router = Router()
 
   constructor() {
@@ -15,4 +15,4 @@ class AuthRoutes {
   }
 }
 
-export default new AuthRoutes().router
+export default new UserRoutes().router
