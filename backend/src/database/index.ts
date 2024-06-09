@@ -1,11 +1,11 @@
-import { Sequelize } from "sequelize-typescript";
-import { config, dialect } from "../../config/db.config";
+import { Sequelize } from 'sequelize-typescript'
+import { config, dialect } from '../../config/db.config'
 
 class Database {
-  public sequelize: Sequelize | undefined;
+  public sequelize: Sequelize | undefined
 
   constructor() {
-    this.connectToDatabase();
+    this.connectToDatabase()
   }
 
   private async connectToDatabase() {
@@ -22,17 +22,17 @@ class Database {
         idle: config.pool.idle
       },
       models: []
-    });
+    })
 
     await this.sequelize
       .authenticate()
       .then(() => {
-        console.log("Connection has been established successfully.");
+        console.log('Connection has been established successfully.')
       })
       .catch((err) => {
-        console.error("Unable to connect to the Database:", err);
-      });
+        console.error('Unable to connect to the Database:', err)
+      })
   }
 }
 
-export default Database;
+export default Database
