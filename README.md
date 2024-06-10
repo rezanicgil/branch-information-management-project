@@ -1,6 +1,6 @@
 # branch-information-management-project
 
-# Installation Steps
+# Docker Compose Installation Steps
 
 Follow these steps to set up the project using Docker Compose:
 
