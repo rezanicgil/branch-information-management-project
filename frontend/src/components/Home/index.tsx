@@ -1,10 +1,14 @@
 import React from "react";
 import { DataTable } from "primereact/datatable";
 import { Column } from "primereact/column";
-
-import { DataView } from "primereact/dataview";
+import "./index.css";
+import { RootState } from "../../redux/store";
+import { useSelector } from "react-redux";
 
 function Home() {
+  const { isAuthenticated, user } = useSelector(
+    (state: RootState) => state.auth
+  );
   const products = [
     {
       id: 1,
@@ -12,6 +16,8 @@ function Home() {
       phone: "5345885555",
       longitude: "1231231231",
       latitude: "541123123123",
+      fullAddress: "Istanbul,Kartal",
+      go: "➡️",
     },
     {
       id: 2,
@@ -19,6 +25,8 @@ function Home() {
       phone: "5345885555",
       longitude: "1231231231",
       latitude: "541123123123",
+      fullAddress: "Istanbul,Kartal",
+      go: "➡️",
     },
     {
       id: 3,
@@ -26,6 +34,8 @@ function Home() {
       phone: "5345885555",
       longitude: "1231231231",
       latitude: "541123123123",
+      fullAddress: "Istanbul,Kartal",
+      go: "➡️",
     },
     {
       id: 4,
@@ -33,6 +43,8 @@ function Home() {
       phone: "5345885555",
       longitude: "1231231231",
       latitude: "541123123123",
+      fullAddress: "Istanbul,Kartal",
+      go: "➡️",
     },
     {
       id: 5,
@@ -40,6 +52,8 @@ function Home() {
       phone: "Description 5",
       longitude: "1231231231",
       latitude: "541123123123",
+      fullAddress: "Istanbul,Kartal",
+      go: "➡️",
     },
     {
       id: 6,
@@ -47,6 +61,8 @@ function Home() {
       phone: "Description 6",
       longitude: "1231231231",
       latitude: "541123123123",
+      fullAddress: "Istanbul,Kartal",
+      go: "➡️",
     },
     {
       id: 7,
@@ -54,6 +70,8 @@ function Home() {
       phone: "Description 7",
       longitude: "1231231231",
       latitude: "541123123123",
+      fullAddress: "Istanbul,Kartal",
+      go: "➡️",
     },
     {
       id: 8,
@@ -61,6 +79,8 @@ function Home() {
       phone: "Description 8",
       longitude: "1231231231",
       latitude: "541123123123",
+      fullAddress: "Istanbul,Kartal",
+      go: "➡️",
     },
     {
       id: 9,
@@ -68,6 +88,8 @@ function Home() {
       phone: "Description 9",
       longitude: "1231231231",
       latitude: "541123123123",
+      fullAddress: "Istanbul,Kartal",
+      go: "➡️",
     },
     {
       id: 10,
@@ -75,27 +97,67 @@ function Home() {
       phone: "Description 10",
       longitude: "1231231231",
       latitude: "541123123123",
+      fullAddress: "Istanbul,Kartal",
+      go: "➡️",
     },
   ];
 
   return (
     <div>
-      <div
-        style={{ display: "flex", justifyContent: "center", marginTop: "2rem" }}
-      >
-        <h2>Branch List</h2>
-      </div>
-      <div
-        style={{ display: "flex", justifyContent: "center", marginTop: "2rem" }}
-      >
-        <DataTable value={products} tableStyle={{ minWidth: "50rem" }}>
-          <Column field="id" header="Branch id"></Column>
-          <Column field="name" header="Branch Name"></Column>
-          <Column field="longitude" header="Category"></Column>
-          <Column field="latitude" header="Quantity"></Column>
-          <Column field="phone" header="Phone"></Column>
-        </DataTable>
-      </div>
+      {isAuthenticated && user ? (
+        <>
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "center",
+              marginTop: "2rem",
+            }}
+          >
+            <h2>Branch List</h2>
+          </div>
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "center",
+              marginTop: "2rem",
+            }}
+          >
+            <DataTable
+              value={products}
+              tableStyle={{ minWidth: "50rem" }}
+              scrollHeight="500px"
+            >
+              <Column field="id" header="Branch id"></Column>
+              <Column field="name" header="Branch Name"></Column>
+              <Column field="longitude" header="Longitude"></Column>
+              <Column field="latitude" header="Latitude"></Column>
+              <Column field="phone" header="Phone"></Column>
+              <Column
+                field="fullAddress"
+                header="Address"
+                className="truncate"
+              ></Column>
+              <Column
+                field="go"
+                header="View Details"
+                className="view-branch-detail"
+              ></Column>
+            </DataTable>
+          </div>
+        </>
+      ) : (
+        <>
+          <h3
+            style={{
+              display: "flex",
+              justifyContent: "center",
+              textAlign: "center",
+            }}
+          >
+            You should signin to see branch list!
+          </h3>
+        </>
+      )}
     </div>
   );
 }

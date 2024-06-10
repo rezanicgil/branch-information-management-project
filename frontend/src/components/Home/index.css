@@ -1,0 +1,11 @@
+.view-branch-detail {
+    cursor: pointer;
+}
+
+
+.truncate {
+    width: 2px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
