@@ -4,11 +4,17 @@ import { Column } from "primereact/column";
 import "./index.css";
 import { RootState } from "../../redux/store";
 import { useSelector } from "react-redux";
+import { useNavigate } from 'react-router-dom';
+
 
 function Home() {
-  const { isAuthenticated } = useSelector(
-    (state: RootState) => state.auth
-  );
+  const { isAuthenticated } = useSelector((state: RootState) => state.auth);
+  const navigate = useNavigate();
+
+
+  const handleRowClick = (id: string) => {
+    navigate(`/branch-details/${id}`);
+  };
   const products = [
     {
       id: 1,
@@ -113,7 +119,6 @@ function Home() {
               marginTop: "2rem",
             }}
           >
-
             <h2>Branch List</h2>
           </div>
           <hr></hr>
@@ -129,6 +134,7 @@ function Home() {
               value={products}
               tableStyle={{ minWidth: "50rem" }}
               scrollHeight="500px"
+              onRowClick={(e) => handleRowClick(e.data.id)}
             >
               <Column field="id" header="Branch id"></Column>
               <Column field="name" header="Branch Name"></Column>
@@ -147,7 +153,6 @@ function Home() {
               ></Column>
             </DataTable>
           </div>
-
         </>
       ) : (
         <>

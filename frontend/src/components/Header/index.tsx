@@ -27,7 +27,7 @@ function Header() {
     <nav>
       <h4 style={{ padding: '1rem'}}>Branch Information Management System</h4>
       <hr></hr>
-      <ul>
+      <ul className="text text-primary" style={{cursor: 'pointer'}}>
         <li>
           <Link to="/">View List</Link>
         </li>

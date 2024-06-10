@@ -42,7 +42,6 @@ export const register = createAsyncThunk(
         lastName
       );
 
-      console.log(response.status);
       if (response.status !== 201) return thunkAPI.rejectWithValue(response.error);
 
       return response;
