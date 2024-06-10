@@ -8,7 +8,7 @@ function Login() {
   const [password, setPassword] = useState("");
   const dispatch = useDispatch<AppDispatch>();
 
-  const { loading, error, user, isAuthenticated } = useSelector(
+  const { loading, error, isAuthenticated } = useSelector(
     (state: RootState) => state.auth
   );
 
@@ -17,32 +17,66 @@ function Login() {
   };
 
   return (
-    <div>
-      {isAuthenticated ? (
-        <>
-          <h2>Successful Login!, Welcome {user?.firstName}</h2>
-        </>
-      ) : (
-        <>
-          <h2>Signin</h2>
-          <input
-            type="email"
-            placeholder="Email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-          />
-          <input
-            type="password"
-            placeholder="Password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-          />
-          <button onClick={handleLogin} disabled={loading}>
-            {loading ? "Signing in..." : "Signin"}
-          </button>
-          {error && <p style={{ color: "red" }}>{error}</p>}
-        </>
-      )}
+    <div
+      style={{
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+      }}
+    >
+      <div
+        style={{
+          display: "inline-block",
+        }}
+      >
+        {isAuthenticated ? (
+          <>
+            <h2
+              style={{
+                display: "flex",
+                justifyContent: "center",
+                textAlign: "center",
+              }}
+            >
+              Logged in successfully!
+            </h2>
+          </>
+        ) : (
+          <>
+            <div>
+              <h3>Signin</h3>
+            </div>
+            <div>
+              <input
+                type="email"
+                placeholder="Email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+              />
+            </div>
+
+            <div>
+              <input
+                type="password"
+                placeholder="Password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+              />
+            </div>
+
+            <div>
+              <button
+                onClick={handleLogin}
+                disabled={loading}
+                className="btn btn-primary"
+              >
+                {loading ? "Signing in..." : "Signin"}
+              </button>
+              {error && <p style={{ color: "red" }}>{error}</p>}
+            </div>
+          </>
+        )}
+      </div>
     </div>
   );
 }

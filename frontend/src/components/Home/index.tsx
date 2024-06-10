@@ -6,7 +6,7 @@ import { RootState } from "../../redux/store";
 import { useSelector } from "react-redux";
 
 function Home() {
-  const { isAuthenticated, user } = useSelector(
+  const { isAuthenticated } = useSelector(
     (state: RootState) => state.auth
   );
   const products = [
@@ -113,8 +113,11 @@ function Home() {
               marginTop: "2rem",
             }}
           >
+
             <h2>Branch List</h2>
           </div>
+          <hr></hr>
+
           <div
             style={{
               display: "flex",
@@ -144,6 +147,7 @@ function Home() {
               ></Column>
             </DataTable>
           </div>
+
         </>
       ) : (
         <>

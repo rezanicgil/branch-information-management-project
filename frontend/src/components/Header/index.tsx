@@ -23,8 +23,10 @@ function Header() {
     dispatch(logout());
   };
   return (
+    <>
     <nav>
-      <h4>Routes</h4>
+      <h4 style={{ padding: '1rem'}}>Branch Information Management System</h4>
+      <hr></hr>
       <ul>
         <li>
           <Link to="/">View List</Link>
@@ -47,6 +49,8 @@ function Header() {
         )}
       </ul>
     </nav>
+    <hr></hr>
+    </>
   );
 }
 
