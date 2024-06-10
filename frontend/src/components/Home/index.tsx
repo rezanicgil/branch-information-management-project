@@ -2,19 +2,21 @@ import React from "react";
 import { DataTable } from "primereact/datatable";
 import { Column } from "primereact/column";
 import "./index.css";
-import { RootState } from "../../redux/store";
-import { useSelector } from "react-redux";
-import { useNavigate } from 'react-router-dom';
-
+import { RootState, AppDispatch } from "../../redux/store";
+import { useSelector, useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { userThunk } from "../../redux/userSlice";
 
 function Home() {
   const { isAuthenticated } = useSelector((state: RootState) => state.auth);
   const navigate = useNavigate();
-
-
-  const handleRowClick = (id: string) => {
-    navigate(`/branch-details/${id}`);
+  const dispatch = useDispatch<AppDispatch>();
+  const { user } = useSelector((state: RootState) => state.user);
+  const handleRowClick = async (id: string) => {
+    await dispatch(userThunk());
+    navigate(`/branch-details/${id}`, { state: { user: user } });
   };
+
   const products = [
     {
       id: 1,
@@ -134,7 +136,9 @@ function Home() {
               value={products}
               tableStyle={{ minWidth: "50rem" }}
               scrollHeight="500px"
-              onRowClick={(e) => handleRowClick(e.data.id)}
+              onRowClick={(e) => {
+                handleRowClick(e.data.id);
+              }}
             >
               <Column field="id" header="Branch id"></Column>
               <Column field="name" header="Branch Name"></Column>
