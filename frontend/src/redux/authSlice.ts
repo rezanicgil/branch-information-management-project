@@ -8,7 +8,6 @@ interface AuthState {
   loading: boolean;
   error: string | null;
   message: string | null;
-
 }
 
 const initialState: AuthState = {
@@ -19,10 +18,9 @@ const initialState: AuthState = {
   loading: false,
   error: null,
 };
-
 // Function to load token from localStorage
 const loadToken = (): string | null => {
-  return localStorage.getItem('token');
+  return localStorage.getItem("token");
 };
 
 // Load token on app initialization
@@ -56,7 +54,7 @@ const authSlice = createSlice({
       state.isAuthenticated = false;
       state.user = null;
       state.token = null;
-      localStorage.removeItem('token');
+      localStorage.removeItem("token");
     },
   },
   extraReducers: (builder) => {
@@ -70,12 +68,12 @@ const authSlice = createSlice({
         state.isAuthenticated = true;
         state.user = action.payload.user;
         state.token = action.payload.token;
-        localStorage.setItem('token', action.payload.token); 
+        localStorage.setItem("token", action.payload.token);
       })
       .addCase(login.rejected, (state, action) => {
         state.loading = false;
         state.error = action.payload as string;
-      });
+      })
   },
 });
 

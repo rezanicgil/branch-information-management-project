@@ -1,5 +1,5 @@
 import { UUIDV4 } from 'sequelize'
-import { Model, Table, Column, DataType } from 'sequelize-typescript'
+import { Model, Table, Column, DataType, Length } from 'sequelize-typescript'
 export enum UserRole {
   OWNER = 'Owner',
   EMPLOYEEE = 'Employee'
@@ -49,6 +49,7 @@ export default class User extends Model {
   })
   email?: string
 
+  @Length({ min: 6 })
   @Column({
     type: DataType.STRING,
     field: 'password',
