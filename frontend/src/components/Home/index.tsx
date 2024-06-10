@@ -104,7 +104,7 @@ function Home() {
 
   return (
     <div>
-      {isAuthenticated && user ? (
+      {isAuthenticated ? (
         <>
           <div
             style={{

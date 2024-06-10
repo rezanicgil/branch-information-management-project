@@ -20,7 +20,7 @@ function Login() {
     <div>
       {isAuthenticated ? (
         <>
-          <h2>Successful Login!, Welcome {user}</h2>
+          <h2>Successful Login!, Welcome {user?.firstName}</h2>
         </>
       ) : (
         <>

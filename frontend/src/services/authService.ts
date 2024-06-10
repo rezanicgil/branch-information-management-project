@@ -4,7 +4,7 @@ const API_URL = 'http://localhost:6868/api'; // Replace with your API URL
 
 interface LoginResponse {
   token: string;
-  user: string;
+  user: any;
   message: string;
 }
 

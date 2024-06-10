@@ -3,7 +3,7 @@ import { loginService } from "../services/authService";
 
 interface AuthState {
   isAuthenticated: boolean;
-  user: string | null;
+  user: any | null;
   token: string | null;
   loading: boolean;
   error: string | null;
