@@ -11,13 +11,13 @@ function Home() {
   const { isAuthenticated } = useSelector((state: RootState) => state.auth);
   const navigate = useNavigate();
   const dispatch = useDispatch<AppDispatch>();
-  const { user } = useSelector((state: RootState) => state.user);
+  const { user, isSuccess } = useSelector((state: RootState) => state.user);
   const handleRowClick = async (id: string) => {
     await dispatch(userThunk());
-    navigate(`/branch-details/${id}`, { state: { user: user } });
+    navigate(`/branch-details/${id}`, { state: { user: user, isSuccess: isSuccess } });
   };
 
-  const products = [
+  const branches = [
     {
       id: 1,
       name: "Branch 1",
@@ -133,7 +133,7 @@ function Home() {
             }}
           >
             <DataTable
-              value={products}
+              value={branches}
               tableStyle={{ minWidth: "50rem" }}
               scrollHeight="500px"
               onRowClick={(e) => {

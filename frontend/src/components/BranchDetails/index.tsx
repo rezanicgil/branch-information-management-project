@@ -8,10 +8,11 @@ function BranchDetails() {
   const location = useLocation();
 
   const user = location.state.user;
+  const isSuccess = location.state.isSuccess;
 
   return (
     <>
-      <p>User Role: {user?.role} </p>
+      {isSuccess && (<p>User Role: { user?.role} </p>)}
       <div style={{ display: "flex", justifyContent: "center" }}>
         <h4>Branch Details</h4>
       </div>

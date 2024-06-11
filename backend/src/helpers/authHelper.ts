@@ -1,7 +1,13 @@
 import jwt from 'jsonwebtoken'
 import User from '../models/user.model'
+import dotenv from 'dotenv'
+dotenv.config()
 
-const secretKey = 'your_secret_key' // Güvenli bir secret key kullanın ve .env dosyasından alın
+const secretKey = process.env.JWT_SECRET_KEY
+
+if (!secretKey) {
+  throw Error('You should provide a JWT_SECRET KEY on .env credentials')
+}
 
 export const generateToken = (user: User): string => {
   const payload = {
@@ -11,7 +17,7 @@ export const generateToken = (user: User): string => {
     firstName: user.firstName,
     lastName: user.lastName
   }
-  return jwt.sign(payload, secretKey, { expiresIn: '1h' })
+  return jwt.sign(payload, secretKey, { expiresIn: '3h' })
 }
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
