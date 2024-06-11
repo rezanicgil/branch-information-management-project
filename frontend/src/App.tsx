@@ -6,6 +6,7 @@ import Login from "./components/Login";
 import Home from "./components/Home";
 import Header from "./components/Header";
 import BranchDetails from "./components/BranchDetails";
+import AddBranch from "./components/AddBranch";
 
 import "primereact/resources/themes/saga-blue/theme.css";
 import "primereact/resources/primereact.min.css";
@@ -26,6 +27,7 @@ function App() {
           <Route path="signin" element={<Login />} />
           <Route path="signup" element={<Register />} />
           <Route path="/branch-details/:id" element={<BranchDetails />} />
+          <Route path="/new-branch" element={<AddBranch />} />
         </Routes>
       </BrowserRouter>
     </div>

@@ -1,8 +1,26 @@
-import React from "react";
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
+import { AppDispatch, RootState } from "../../redux/store";
+import { fetchOneBranch } from "../../redux/getOneBranchSlice";
 
 function BranchDetails() {
   const { id } = useParams();
+
+  const { isAuthenticated } = useSelector((state: RootState) => state.auth);
+  const dispatch = useDispatch<AppDispatch>();
+  const { branch, loading } = useSelector(
+    (state: RootState) => state.getOneBranch
+  );
+  useEffect(() => {
+    if (isAuthenticated && id) {
+      dispatch(fetchOneBranch({ branchId: id }));
+    }
+  }, [dispatch, isAuthenticated, id]);
+
+  if (loading) {
+    return <p>Loading...</p>;
+  }
 
   return (
     <>
@@ -15,7 +33,7 @@ function BranchDetails() {
       >
         <label htmlFor="BranchId">Branch Id: </label>
         <p className="text" id="BranchId">
-          {id}
+          {branch?.branchId}
         </p>
       </div>
       <div
@@ -23,7 +41,7 @@ function BranchDetails() {
       >
         <label htmlFor="BranchName">Branch Name: </label>
         <p className="text" id="BranchName">
-          {id}
+          {branch?.name}
         </p>
       </div>
       <div
@@ -31,7 +49,7 @@ function BranchDetails() {
       >
         <label htmlFor="BranchPhone">Phone: </label>
         <p className="text" id="BranchPhone">
-          {id}
+          {branch?.phone}
         </p>
       </div>
       <div
@@ -39,7 +57,7 @@ function BranchDetails() {
       >
         <label htmlFor="BranchAddress">Address: </label>
         <p className="text" id="BranchAddress">
-          {id}
+          {branch?.fullAddress}
         </p>
       </div>
       <div
@@ -47,7 +65,7 @@ function BranchDetails() {
       >
         <label htmlFor="BranchLongitude">Longitude: </label>
         <p className="text" id="BranchLongitude">
-          {id}
+          {branch?.longitude}
         </p>
       </div>
       <div
@@ -55,7 +73,7 @@ function BranchDetails() {
       >
         <label htmlFor="BranchLatitude">Latitude: </label>
         <p className="text" id="BranchLatitude">
-          {id}
+          {branch?.latitude}
         </p>
       </div>
     </>

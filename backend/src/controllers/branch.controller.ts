@@ -13,7 +13,7 @@ export async function createBranchHandler(req: AuthenticatedRequest, res: Respon
     })
   } catch (error) {
     const err = error as Error
-    return res.json({
+    return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
       message: 'Internal Server Error!',
       status: StatusCodes.INTERNAL_SERVER_ERROR,
       error: err.message.split('\n')
@@ -31,7 +31,7 @@ export async function updateBranchHandler(req: AuthenticatedRequest, res: Respon
     })
   } catch (error) {
     const err = error as Error
-    return res.json({
+    return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
       message: 'Internal Server Error!',
       status: StatusCodes.INTERNAL_SERVER_ERROR,
       error: err.message.split('\n')
@@ -54,7 +54,7 @@ export async function findAllBranchesHandler(req: AuthenticatedRequest, res: Res
     })
   } catch (error) {
     const err = error as Error
-    return res.json({
+    return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
       message: 'Internal Server Error!',
       status: StatusCodes.INTERNAL_SERVER_ERROR,
       error: err.message.split('\n')

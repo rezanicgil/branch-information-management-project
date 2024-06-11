@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { DataTable } from "primereact/datatable";
 import { Column } from "primereact/column";
 import "./index.css";
@@ -6,12 +6,25 @@ import { RootState, AppDispatch } from "../../redux/store";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { userThunk } from "../../redux/userSlice";
+import { fetchBranches } from "../../redux/branchSlice";
 
 function Home() {
   const { isAuthenticated } = useSelector((state: RootState) => state.auth);
   const navigate = useNavigate();
   const dispatch = useDispatch<AppDispatch>();
-  const { isSuccess } = useSelector((state: RootState) => state.user);
+  const { user, isSuccess } = useSelector((state: RootState) => state.user);
+  const { branches, loading } = useSelector((state: RootState) => state.branch);
+
+  const goTemplate = () => {
+    return <span>➡️ View Details</span>;
+  };
+
+  useEffect(() => {
+    if (isAuthenticated) {
+      dispatch(fetchBranches());
+    }
+  }, [dispatch, isAuthenticated]);
+
   const handleRowClick = async (id: string) => {
     await dispatch(userThunk());
     if(isSuccess){
@@ -19,161 +32,43 @@ function Home() {
     }
   };
 
-  const branches = [
-    {
-      id: 1,
-      name: "Branch 1",
-      phone: "5345885555",
-      longitude: "1231231231",
-      latitude: "541123123123",
-      fullAddress: "Istanbul,Kartal",
-      go: "➡️",
-    },
-    {
-      id: 2,
-      name: "Branch 2",
-      phone: "5345885555",
-      longitude: "1231231231",
-      latitude: "541123123123",
-      fullAddress: "Istanbul,Kartal",
-      go: "➡️",
-    },
-    {
-      id: 3,
-      name: "Branch 3",
-      phone: "5345885555",
-      longitude: "1231231231",
-      latitude: "541123123123",
-      fullAddress: "Istanbul,Kartal",
-      go: "➡️",
-    },
-    {
-      id: 4,
-      name: "Branch 4",
-      phone: "5345885555",
-      longitude: "1231231231",
-      latitude: "541123123123",
-      fullAddress: "Istanbul,Kartal",
-      go: "➡️",
-    },
-    {
-      id: 5,
-      name: "Branch 5",
-      phone: "Description 5",
-      longitude: "1231231231",
-      latitude: "541123123123",
-      fullAddress: "Istanbul,Kartal",
-      go: "➡️",
-    },
-    {
-      id: 6,
-      name: "Branch 6",
-      phone: "Description 6",
-      longitude: "1231231231",
-      latitude: "541123123123",
-      fullAddress: "Istanbul,Kartal",
-      go: "➡️",
-    },
-    {
-      id: 7,
-      name: "Branch 7",
-      phone: "Description 7",
-      longitude: "1231231231",
-      latitude: "541123123123",
-      fullAddress: "Istanbul,Kartal",
-      go: "➡️",
-    },
-    {
-      id: 8,
-      name: "Branch 8",
-      phone: "Description 8",
-      longitude: "1231231231",
-      latitude: "541123123123",
-      fullAddress: "Istanbul,Kartal",
-      go: "➡️",
-    },
-    {
-      id: 9,
-      name: "Branch 9",
-      phone: "Description 9",
-      longitude: "1231231231",
-      latitude: "541123123123",
-      fullAddress: "Istanbul,Kartal",
-      go: "➡️",
-    },
-    {
-      id: 10,
-      name: "Branch 10",
-      phone: "Description 10",
-      longitude: "1231231231",
-      latitude: "541123123123",
-      fullAddress: "Istanbul,Kartal",
-      go: "➡️",
-    },
-  ];
 
   return (
     <div>
-      {isAuthenticated ? (
-        <>
-          <div
-            style={{
-              display: "flex",
-              justifyContent: "center",
-              marginTop: "2rem",
-            }}
-          >
-            <h2>Branch List</h2>
-          </div>
-          <hr></hr>
-
-          <div
-            style={{
-              display: "flex",
-              justifyContent: "center",
-              marginTop: "2rem",
-            }}
-          >
+    {isAuthenticated ? (
+      <>
+        <div style={{ display: 'flex', justifyContent: 'space-around', marginTop: '2rem' }}>
+          <div><h2>Branch List</h2></div>
+          { user?.role === 'Owner' && <button className="btn btn-small btn-info" onClick={()=> {navigate(`/new-branch`)}}>Add new branch</button>}
+        </div>
+        <hr />
+        <div style={{ display: 'flex', justifyContent: 'center', marginTop: '2rem' }}>
+          {loading ? (
+            <p>Loading...</p>
+          ) : (
             <DataTable
-              value={branches}
-              tableStyle={{ minWidth: "50rem" }}
+              value={branches || []}
+              tableStyle={{ minWidth: '50rem' }}
               scrollHeight="500px"
-              onRowClick={(e) => {
-                handleRowClick(e.data.id);
-              }}
+              onRowClick={(e) => handleRowClick(e.data.branchId)}
             >
-              <Column field="id" header="Branch id"></Column>
-              <Column field="name" header="Branch Name"></Column>
-              <Column field="longitude" header="Longitude"></Column>
-              <Column field="latitude" header="Latitude"></Column>
-              <Column field="phone" header="Phone"></Column>
-              <Column
-                field="fullAddress"
-                header="Address"
-                className="truncate"
-              ></Column>
-              <Column
-                field="go"
-                header="View Details"
-                className="view-branch-detail"
-              ></Column>
+              <Column field="branchId" header="Branch id" />
+              <Column field="name" header="Branch Name" />
+              <Column field="longitude" header="Longitude" />
+              <Column field="latitude" header="Latitude" />
+              <Column field="phone" header="Phone" />
+              <Column field="fullAddress" header="Address" className="truncate" />
+              <Column field="go" body={goTemplate} header="View Details" className="view-branch-detail" />
             </DataTable>
-          </div>
-        </>
-      ) : (
-        <>
-          <h3
-            style={{
-              display: "flex",
-              justifyContent: "center",
-              textAlign: "center",
-            }}
-          >
-            You should signin to see branch list!
-          </h3>
-        </>
-      )}
-    </div>
+          )}
+        </div>
+      </>
+    ) : (
+      <h3 style={{ display: 'flex', justifyContent: 'center', textAlign: 'center' }}>
+        You should sign in to see branch list!
+      </h3>
+    )}
+  </div>
   );
 }
 
