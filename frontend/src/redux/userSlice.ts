@@ -26,6 +26,14 @@ const initialStateUser: UserState = {
   user: null,
 };
 
+// Function to load token from localStorage
+const loadUserRole = (): string | null => {
+  return localStorage.getItem("userRole");
+};
+
+// Load token on app initialization
+const userRole = loadUserRole();
+
 export const userThunk = createAsyncThunk("auth/user", async (_, thunkAPI) => {
   try {
     const response = await getUser();
@@ -39,6 +47,7 @@ const userSlice = createSlice({
   name: "user",
   initialState: {
     ...initialStateUser,
+    role: userRole
   },
   reducers: {},
   extraReducers: (builder) => {
@@ -52,6 +61,8 @@ const userSlice = createSlice({
         state.loading = false;
         state.isSuccess = true;
         state.user = action.payload.user;
+        if (action.payload.user.role)
+          localStorage.setItem("userRole", action.payload.user.role);
       })
       .addCase(userThunk.rejected, (state, action) => {
         state.loading = false;

@@ -12,8 +12,9 @@ function Login() {
     (state: RootState) => state.auth
   );
 
-  const handleLogin = () => {
-    dispatch(login({ email, password }));
+
+  const handleLogin = async () => {
+    await dispatch(login({ email, password }));
   };
 
   return (

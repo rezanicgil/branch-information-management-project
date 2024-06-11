@@ -1,18 +1,11 @@
 import React from "react";
 import { useParams } from "react-router-dom";
 
-import { useLocation } from "react-router-dom";
-
 function BranchDetails() {
   const { id } = useParams();
-  const location = useLocation();
-
-  const user = location.state.user;
-  const isSuccess = location.state.isSuccess;
 
   return (
     <>
-      {isSuccess && (<p>User Role: { user?.role} </p>)}
       <div style={{ display: "flex", justifyContent: "center" }}>
         <h4>Branch Details</h4>
       </div>

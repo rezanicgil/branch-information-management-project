@@ -11,10 +11,12 @@ function Home() {
   const { isAuthenticated } = useSelector((state: RootState) => state.auth);
   const navigate = useNavigate();
   const dispatch = useDispatch<AppDispatch>();
-  const { user, isSuccess } = useSelector((state: RootState) => state.user);
+  const { isSuccess } = useSelector((state: RootState) => state.user);
   const handleRowClick = async (id: string) => {
     await dispatch(userThunk());
-    navigate(`/branch-details/${id}`, { state: { user: user, isSuccess: isSuccess } });
+    if(isSuccess){
+      navigate(`/branch-details/${id}`);
+    }
   };
 
   const branches = [
