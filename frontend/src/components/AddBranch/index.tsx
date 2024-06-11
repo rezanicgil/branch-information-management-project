@@ -10,8 +10,6 @@ function AddBranch() {
   const [phone, setPhone] = useState("");
   const [fullAddress, setFullAddress] = useState("");
 
-
-
   const dispatch = useDispatch<AppDispatch>();
 
   const { loading, error, isSuccess } = useSelector(
@@ -19,7 +17,15 @@ function AddBranch() {
   );
 
   const handleSave = () => {
-    dispatch(createBranch({ name: branchName, longitude, latitude, phone, fullAddress }));
+    dispatch(
+      createBranch({
+        name: branchName,
+        longitude,
+        latitude,
+        phone,
+        fullAddress,
+      })
+    );
   };
 
   return (
